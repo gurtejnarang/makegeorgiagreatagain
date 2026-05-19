@@ -376,7 +376,130 @@ function Hero() {
   )
 }
 
-// ── Stat strip ─────────────────────────────────────────────────────────────
+// ── The Full Georgia ───────────────────────────────────────────────────────
+
+const GA_CITIES = [
+  { city: 'Atlanta',         role: 'Finance, tech, culture — the engine' },
+  { city: 'Savannah',        role: 'History, food, coastal charm' },
+  { city: 'Columbus',        role: 'River economy, military, affordable growth' },
+  { city: 'Augusta',         role: 'Golf, medical, quiet Southern character' },
+  { city: 'The Golden Isles',role: 'World-class coastal luxury destination' },
+  { city: 'The Chattahoochee',role: 'Family recreation and riverfront living' },
+  { city: 'South Georgia',   role: 'Land, hunting, agri-tourism powerhouse' },
+]
+
+function FullGeorgia() {
+  const [ref, inView] = useInView(0.1)
+  return (
+    <section ref={ref} style={{
+      padding: '8rem 4rem',
+      background: C.surface,
+      borderTop: `1px solid ${C.border}`,
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.8fr',
+          gap: '6rem',
+          alignItems: 'start',
+        }}>
+          {/* Left */}
+          <div style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'none' : 'translateY(30px)',
+            transition: 'opacity 0.9s ease 0.05s, transform 0.9s ease 0.05s',
+          }}>
+            <p style={{
+              fontFamily: "'Public Sans', sans-serif",
+              fontSize: '0.7rem',
+              fontWeight: 500,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: C.red,
+              margin: '0 0 1.2rem',
+            }}>
+              The Vision
+            </p>
+            <h2 style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 900,
+              fontSize: 'clamp(3.5rem, 6vw, 5.5rem)',
+              lineHeight: 0.92,
+              color: C.navy,
+              margin: '0 0 1.8rem',
+              letterSpacing: '-0.01em',
+            }}>
+              THE FULL GEORGIA
+            </h2>
+            <p style={{
+              fontFamily: "'Fraunces', serif",
+              fontStyle: 'italic',
+              fontWeight: 300,
+              fontSize: '1.15rem',
+              color: C.muted,
+              lineHeight: 1.7,
+              margin: '0 0 1.5rem',
+            }}>
+              Florida doesn't run on Miami alone. It runs on Miami, Tampa, Orlando, Jacksonville, St. Pete, West Palm — a full roster of cities each pulling their own weight.
+            </p>
+            <p style={{
+              fontFamily: "'Public Sans', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.94rem',
+              color: C.mutedHi,
+              lineHeight: 1.9,
+              margin: 0,
+            }}>
+              Right now Georgia runs on Atlanta and a supporting cast nobody's bothered to develop. The Full Georgia means every region has an identity, an economy, and a reason to exist on the national map — independently.
+            </p>
+          </div>
+
+          {/* Right: city list */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+            {GA_CITIES.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: '1.5rem',
+                  padding: '1.4rem 0',
+                  borderBottom: `1px solid ${C.border}`,
+                  opacity: inView ? 1 : 0,
+                  transform: inView ? 'none' : 'translateX(30px)',
+                  transition: `opacity 0.7s ease ${0.15 + i * 0.08}s, transform 0.7s ease ${0.15 + i * 0.08}s`,
+                }}
+              >
+                <div style={{
+                  fontFamily: "'Big Shoulders Display', sans-serif",
+                  fontWeight: 700,
+                  fontSize: '1.35rem',
+                  color: C.navy,
+                  minWidth: '11rem',
+                  letterSpacing: '0.01em',
+                }}>
+                  {item.city}
+                </div>
+                <div style={{
+                  fontFamily: "'Public Sans', sans-serif",
+                  fontWeight: 300,
+                  fontSize: '0.88rem',
+                  color: C.muted,
+                  lineHeight: 1.5,
+                }}>
+                  {item.role}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function StatStrip() {
   const stats = [
@@ -762,6 +885,7 @@ export default function App() {
       <ScrollProgress />
       <Nav />
       <Hero />
+      <FullGeorgia />
       <StatStrip />
       {POLICIES.map((policy, i) => (
         <PolicySection key={policy.id} policy={policy} index={i} />
