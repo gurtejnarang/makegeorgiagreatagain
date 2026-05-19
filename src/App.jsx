@@ -501,6 +501,186 @@ function FullGeorgia() {
   )
 }
 
+// ── The Case for Georgia ───────────────────────────────────────────────────
+
+const GA_ASSETS = [
+  {
+    category: 'Geography',
+    color: '#2D5F8A',
+    items: [
+      'Blue Ridge Mountains in the North',
+      'Lake Lanier and lakes throughout the state',
+      'Chattahoochee, Savannah, Flint, and Oconee Rivers',
+      'Barrier islands and full Atlantic coast access',
+      'Piedmont farmland and open countryside',
+      'Flat open hunting land across South Georgia',
+    ],
+  },
+  {
+    category: 'All 7 Seasons',
+    color: '#3D6B35',
+    items: [
+      'Spring in Savannah — one of the most beautiful in the country',
+      'Summer on the coast and the lakes',
+      'Fall foliage across the North Georgia mountains',
+      'Mild winters that never chase people indoors',
+      'A 12-month tourism pitch — not a seasonal one',
+      'Something going on every single month of the year',
+    ],
+  },
+  {
+    category: 'Universities',
+    color: '#BF2033',
+    items: [
+      'UGA — flagship SEC school and Athens cultural engine',
+      'Georgia Tech — world-class engineering and research',
+      'Emory — top-tier medical university, CDC next door',
+      'SCAD — arguably the best art and design school in the country',
+    ],
+  },
+]
+
+function CaseForGeorgia() {
+  const [ref, inView] = useInView(0.08)
+  return (
+    <section ref={ref} style={{
+      padding: '8rem 4rem',
+      background: C.navy,
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+
+        {/* Header */}
+        <div style={{
+          marginBottom: '5rem',
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : 'translateY(25px)',
+          transition: 'opacity 0.9s ease 0.05s, transform 0.9s ease 0.05s',
+        }}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.7rem',
+            fontWeight: 500,
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.4)',
+            margin: '0 0 1.2rem',
+          }}>
+            The Opportunity
+          </p>
+          <h2 style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 900,
+            fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+            lineHeight: 0.92,
+            color: '#fff',
+            margin: '0 0 1.8rem',
+          }}>
+            THE CASE FOR GEORGIA
+          </h2>
+          <p style={{
+            fontFamily: "'Fraunces', serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '1.2rem',
+            color: 'rgba(255,255,255,0.65)',
+            lineHeight: 1.7,
+            maxWidth: '42rem',
+            margin: 0,
+          }}>
+            Georgia is quietly one of the most complete states in the country. Mountains, coast, rivers, lakes, hunting land, elite universities, a world-class city — and still underpriced compared to Florida and Texas. That's the pitch.
+          </p>
+        </div>
+
+        {/* Asset columns */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '3rem',
+        }}>
+          {GA_ASSETS.map((block, i) => (
+            <div key={i} style={{
+              opacity: inView ? 1 : 0,
+              transform: inView ? 'none' : 'translateY(35px)',
+              transition: `opacity 0.85s ease ${0.2 + i * 0.12}s, transform 0.85s ease ${0.2 + i * 0.12}s`,
+            }}>
+              <div style={{
+                width: '2.5rem',
+                height: '3px',
+                background: block.color,
+                marginBottom: '1.2rem',
+                borderRadius: '2px',
+              }} />
+              <h3 style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 700,
+                fontSize: '1.4rem',
+                color: '#fff',
+                letterSpacing: '0.04em',
+                margin: '0 0 1.4rem',
+                textTransform: 'uppercase',
+              }}>
+                {block.category}
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                {block.items.map((item, j) => (
+                  <div key={j} style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.75rem',
+                    opacity: inView ? 1 : 0,
+                    transition: `opacity 0.6s ease ${0.3 + i * 0.12 + j * 0.06}s`,
+                  }}>
+                    <div style={{
+                      flexShrink: 0,
+                      marginTop: '0.45rem',
+                      width: '4px',
+                      height: '4px',
+                      borderRadius: '50%',
+                      background: block.color,
+                    }} />
+                    <span style={{
+                      fontFamily: "'Public Sans', sans-serif",
+                      fontWeight: 300,
+                      fontSize: '0.88rem',
+                      color: 'rgba(255,255,255,0.58)',
+                      lineHeight: 1.65,
+                    }}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom quote */}
+        <div style={{
+          marginTop: '5rem',
+          paddingTop: '3rem',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
+          opacity: inView ? 1 : 0,
+          transition: 'opacity 1s ease 0.7s',
+        }}>
+          <p style={{
+            fontFamily: "'Fraunces', serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: 'clamp(1.3rem, 2.5vw, 2rem)',
+            color: 'rgba(255,255,255,0.85)',
+            lineHeight: 1.5,
+            margin: 0,
+            maxWidth: '52rem',
+          }}>
+            "Most states sell one or two seasons. Georgia has something going on every single month of the year — and a geography stack most states would trade anything for."
+          </p>
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
 function StatStrip() {
   const stats = [
     { val: '5',     label: 'Policy Pillars' },
@@ -886,6 +1066,7 @@ export default function App() {
       <Nav />
       <Hero />
       <FullGeorgia />
+      <CaseForGeorgia />
       <StatStrip />
       {POLICIES.map((policy, i) => (
         <PolicySection key={policy.id} policy={policy} index={i} />
