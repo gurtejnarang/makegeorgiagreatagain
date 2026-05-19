@@ -199,7 +199,7 @@ function Nav() {
         transition: 'all 0.4s ease',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+      <a href="#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
         <img
           src={eagleLogo}
           alt="USA First Lab"
@@ -222,7 +222,7 @@ function Nav() {
         }}>
           USA First Lab
         </div>
-      </div>
+      </a>
       <div style={{ display: 'flex', gap: '2.5rem' }}>
         {navItems.map((item) => (
           <NavLink key={item.id} href={`#${item.id}`} label={item.label} />
