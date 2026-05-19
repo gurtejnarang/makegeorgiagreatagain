@@ -69,12 +69,12 @@ const POLICIES = [
     title: "Don't Tax My Home. Don't Tax My Income.",
     stat: '0%',
     statSub: 'The target for both income and property tax.',
-    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and suddenly tourists and transplants fund the state, not Georgia families.",
+    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and let a booming tourism economy carry the load, not Georgia families.",
     bullets: [
       'Eliminate state income tax to match Florida and Tennessee',
       'Abolish property tax on primary residences',
       'Shift to a broad-based consumption and sales tax model',
-      'Offset the base with aggressive population attraction strategy',
+      'Drive an aggressive tourism boom that lowers the financial burden on every Georgian — the same playbook Tennessee and Florida already run',
     ],
   },
   {
@@ -716,12 +716,37 @@ function Footer() {
       }}>
         A framework for bold leadership
       </div>
-      <div style={{
-        fontFamily: "'Public Sans', sans-serif",
-        fontSize: '0.7rem',
-        color: C.muted,
-      }}>
-        usafirstlab.org
+      <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <a
+          href="https://x.com/usafirstlab"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.75rem',
+            fontWeight: 500,
+            color: C.muted,
+            textDecoration: 'none',
+            letterSpacing: '0.04em',
+          }}
+        >
+          𝕏 @usafirstlab
+        </a>
+        <a
+          href="https://instagram.com/usafirstlab"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.75rem',
+            fontWeight: 500,
+            color: C.muted,
+            textDecoration: 'none',
+            letterSpacing: '0.04em',
+          }}
+        >
+          IG @usafirstlab
+        </a>
       </div>
     </footer>
   )
