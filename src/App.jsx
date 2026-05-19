@@ -1,0 +1,746 @@
+import { useState, useEffect, useRef } from 'react'
+import eagleLogo from './assets/eagle-flag.png'
+
+// Inject Google Fonts
+(function injectFonts() {
+  if (typeof document === 'undefined') return
+  if (document.querySelector('[data-id="ga-vision-fonts"]')) return
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.href =
+    'https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Public+Sans:wght@300;400;500&display=swap'
+  link.setAttribute('data-id', 'ga-vision-fonts')
+  document.head.appendChild(link)
+})()
+
+const C = {
+  bg:        '#F4F2EE',
+  surface:   '#ECEAE4',
+  navy:      '#1C2B4E',
+  red:       '#BF2033',
+  sky:       '#4A8BC4',
+  ink:       '#141414',
+  muted:     'rgba(20,20,20,0.45)',
+  mutedHi:   'rgba(20,20,20,0.68)',
+  border:    'rgba(28,43,78,0.12)',
+}
+
+const POLICIES = [
+  {
+    id: 'infrastructure',
+    num: '01',
+    color: '#BF2033',
+    colorDim: 'rgba(191,32,51,0.06)',
+    eyebrow: 'Infrastructure',
+    title: 'Two Airports. One Coast. No More Excuses.',
+    stat: 'SAV + BQK',
+    statSub: 'Both underperforming. Both ready for activation.',
+    body: "Savannah has the bones of a world-class regional airport. Brunswick has a runway with nothing behind it. Strong leadership picks one — or builds both — into a full coastal gateway that ends Atlanta's stranglehold and puts Georgia's coast on the global travel map.",
+    bullets: [
+      'Upgrade SAV or fully activate BQK as a regional hub',
+      'Direct international routes for coast-bound travelers',
+      "Break Atlanta's monopoly on Georgia air traffic",
+      'Unlock hotel, logistics and business development downstream',
+    ],
+  },
+  {
+    id: 'coastal',
+    num: '02',
+    color: '#4A8BC4',
+    colorDim: 'rgba(74,139,196,0.06)',
+    eyebrow: 'Coastal Identity',
+    title: 'Brand the Coast Like We Mean It.',
+    stat: '100 Mi.',
+    statSub: 'Of coastline Charleston is eating our lunch on.',
+    body: "Jekyll. Cumberland. Tybee. The Golden Isles. Georgia's barrier islands are world-class assets treated like budget afterthoughts. Maintain them to Sea Island standards, market them aggressively, and build the Georgia Coast into a destination that competes with Charleston, Hilton Head, and Amelia Island.",
+    bullets: [
+      'Fund barrier island maintenance to Sea Island standards',
+      'Create a unified Georgia Coast national tourism brand',
+      "Extend Savannah's culinary and cultural identity southward",
+      'Compete directly for the Charleston and Hilton Head visitor',
+    ],
+  },
+  {
+    id: 'tax',
+    num: '03',
+    color: '#1C2B4E',
+    colorDim: 'rgba(28,43,78,0.06)',
+    eyebrow: 'Tax Reform',
+    title: "Don't Tax My Home. Don't Tax My Income.",
+    stat: '0%',
+    statSub: 'The target for both income and property tax.',
+    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and suddenly tourists and transplants fund the state, not Georgia families.",
+    bullets: [
+      'Eliminate state income tax to match Florida and Tennessee',
+      'Abolish property tax on primary residences',
+      'Shift to a broad-based consumption and sales tax model',
+      'Offset the base with aggressive population attraction strategy',
+    ],
+  },
+  {
+    id: 'southga',
+    num: '04',
+    color: '#3D6B35',
+    colorDim: 'rgba(61,107,53,0.06)',
+    eyebrow: 'South Georgia',
+    title: 'Turn the Wild South Into an Industry.',
+    stat: '$1.5B',
+    statSub: 'Annual feral hog damage. Flip it into revenue.',
+    body: "Texas built an entire aerial hunting industry around feral hogs — Georgia has the same problem, the same land, and none of the commercial infrastructure. License outfitters, develop hunting lodges, and let South Georgia rural counties participate in an economy that doesn't depend on Atlanta.",
+    bullets: [
+      'License commercial aerial hog hunting operations statewide',
+      'Develop Texas-style hunting tourism across South Georgia',
+      'Expand agri-tourism and outfitter certification programs',
+      'Economic engine for counties currently left behind',
+    ],
+  },
+  {
+    id: 'river',
+    num: '05',
+    color: '#2D5F8A',
+    colorDim: 'rgba(45,95,138,0.06)',
+    eyebrow: 'Natural Resources',
+    title: "Nashville Did It. Austin Did It. Georgia Hasn't.",
+    stat: '430 Mi.',
+    statSub: 'Of Chattahoochee River. Mostly untouched.',
+    body: "The Cumberland River made Nashville's waterfront a billion-dollar asset. Lady Bird Lake is Austin's crown jewel. The Chicago Riverwalk generates hundreds of millions annually. The Chattahoochee runs 430 miles through Georgia and we've barely touched it.",
+    bullets: [
+      'Develop the Chattahoochee as a statewide economic corridor',
+      'Mixed-use waterfront development from Atlanta to Columbus',
+      'Trails, event infrastructure, and full recreational access',
+      "Anchor Georgia's identity around its greatest natural asset",
+    ],
+  },
+]
+
+// ── Hooks ──────────────────────────────────────────────────────────────────
+
+function useInView(threshold = 0.12) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setInView(true) },
+      { threshold }
+    )
+    if (ref.current) obs.observe(ref.current)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, inView]
+}
+
+// ── Reveal wrapper ─────────────────────────────────────────────────────────
+
+function Reveal({ children, delay = 0, y = 40, x = 0, style = {} }) {
+  const [ref, inView] = useInView()
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'none' : `translate(${x}px, ${y}px)`,
+        transition: `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+// ── Scroll progress bar ────────────────────────────────────────────────────
+
+function ScrollProgress() {
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const update = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      if (total > 0) setPct(window.scrollY / total)
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '3px', zIndex: 1000, background: 'rgba(28,43,78,0.1)' }}>
+      <div style={{ height: '100%', width: `${pct * 100}%`, background: C.red, transition: 'width 0.08s linear' }} />
+    </div>
+  )
+}
+
+// ── Nav ────────────────────────────────────────────────────────────────────
+
+function Nav() {
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  const navItems = [
+    { label: 'Infrastructure', id: 'infrastructure' },
+    { label: 'Coast', id: 'coastal' },
+    { label: 'Tax Reform', id: 'tax' },
+    { label: 'South GA', id: 'southga' },
+    { label: 'River', id: 'river' },
+  ]
+
+  return (
+    <nav
+      style={{
+        position: 'fixed', top: '3px', left: 0, right: 0, zIndex: 999,
+        padding: '1.1rem 3rem',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        background: scrolled ? 'rgba(244,242,238,0.96)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
+        borderBottom: scrolled ? `1px solid ${C.border}` : 'none',
+        transition: 'all 0.4s ease',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <img
+          src={eagleLogo}
+          alt="USA First Lab"
+          style={{
+            width: '32px',
+            height: '32px',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            imageRendering: 'pixelated',
+            borderRadius: '2px',
+          }}
+        />
+        <div style={{
+          fontFamily: "'Big Shoulders Display', sans-serif",
+          fontWeight: 900,
+          fontSize: '1.1rem',
+          color: C.navy,
+          letterSpacing: '0.07em',
+          textTransform: 'uppercase',
+        }}>
+          USA First Lab
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: '2.5rem' }}>
+        {navItems.map((item) => (
+          <NavLink key={item.id} href={`#${item.id}`} label={item.label} />
+        ))}
+      </div>
+    </nav>
+  )
+}
+
+function NavLink({ href, label }) {
+  const [hov, setHov] = useState(false)
+  return (
+    <a
+      href={href}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        fontFamily: "'Public Sans', sans-serif",
+        fontSize: '0.73rem',
+        fontWeight: 500,
+        letterSpacing: '0.07em',
+        textTransform: 'uppercase',
+        color: hov ? C.navy : C.muted,
+        textDecoration: 'none',
+        transition: 'color 0.2s ease',
+      }}
+    >
+      {label}
+    </a>
+  )
+}
+
+// ── Hero ───────────────────────────────────────────────────────────────────
+
+function Hero() {
+  const [vis, setVis] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setVis(true), 100)
+    return () => clearTimeout(t)
+  }, [])
+
+  const anim = (delay) => ({
+    opacity: vis ? 1 : 0,
+    transform: vis ? 'none' : 'translateY(28px)',
+    transition: `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 1s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+  })
+
+  return (
+    <section
+      style={{
+        minHeight: '100vh',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        background: C.bg,
+        overflow: 'hidden',
+      }}
+    >
+      {/* Left: text */}
+      <div style={{ padding: '10rem 4rem 6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div style={anim(0.2)}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.7rem',
+            fontWeight: 500,
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: C.red,
+            marginBottom: '1.6rem',
+          }}>
+            A Policy Vision by USA First Lab
+          </p>
+        </div>
+
+        <div style={anim(0.36)}>
+          <h1 style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 900,
+            fontSize: 'clamp(4.5rem, 9vw, 9rem)',
+            lineHeight: 0.9,
+            color: C.navy,
+            margin: '0 0 0.25rem',
+            letterSpacing: '-0.01em',
+          }}>
+            GEORGIA
+          </h1>
+          <h2 style={{
+            fontFamily: "'Fraunces', serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)',
+            color: C.red,
+            margin: 0,
+          }}>
+            Unleashed.
+          </h2>
+        </div>
+
+        <div style={{ ...anim(0.55), marginTop: '2rem' }}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.95rem',
+            fontWeight: 300,
+            color: C.mutedHi,
+            lineHeight: 1.85,
+            maxWidth: '28rem',
+            margin: 0,
+          }}>
+            Five pillars for a Georgia that competes with Florida, Texas, and Tennessee — not just geographically, but economically, fiscally, and culturally.
+          </p>
+        </div>
+
+        <div style={{ ...anim(0.7), marginTop: '2.8rem' }}>
+          <a
+            href="#infrastructure"
+            style={{
+              display: 'inline-block',
+              fontFamily: "'Public Sans', sans-serif",
+              fontSize: '0.75rem',
+              fontWeight: 500,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: '#fff',
+              background: C.navy,
+              padding: '0.85rem 2.2rem',
+              textDecoration: 'none',
+              borderRadius: '2px',
+            }}
+          >
+            Read the Vision
+          </a>
+        </div>
+      </div>
+
+      {/* Right: eagle image */}
+      <div style={{ position: 'relative', overflow: 'hidden', background: '#A8CEE8' }}>
+        <img
+          src={eagleLogo}
+          alt="Pixel art American flag with bald eagle"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            opacity: vis ? 1 : 0,
+            transition: 'opacity 1.2s ease 0.5s',
+            imageRendering: 'pixelated',
+          }}
+        />
+      </div>
+    </section>
+  )
+}
+
+// ── Stat strip ─────────────────────────────────────────────────────────────
+
+function StatStrip() {
+  const stats = [
+    { val: '5',     label: 'Policy Pillars' },
+    { val: '430mi', label: 'Untapped River' },
+    { val: '$1.5B', label: 'Hog Damage Annually' },
+    { val: '100mi', label: 'Underused Coastline' },
+    { val: '0%',    label: 'Target Income Tax' },
+  ]
+  return (
+    <section style={{
+      padding: '2.2rem 4rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      background: C.navy,
+      flexWrap: 'wrap',
+      gap: '1.5rem',
+    }}>
+      {stats.map((s, i) => (
+        <Reveal key={i} delay={i * 0.07} y={14}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{
+              fontFamily: "'Big Shoulders Display', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(1.6rem, 2.8vw, 2.5rem)',
+              color: '#fff',
+              lineHeight: 1,
+            }}>
+              {s.val}
+            </div>
+            <div style={{
+              fontFamily: "'Public Sans', sans-serif",
+              fontSize: '0.64rem',
+              fontWeight: 400,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.45)',
+              marginTop: '0.3rem',
+            }}>
+              {s.label}
+            </div>
+          </div>
+        </Reveal>
+      ))}
+    </section>
+  )
+}
+
+// ── Policy section ─────────────────────────────────────────────────────────
+
+function PolicySection({ policy, index }) {
+  const isEven = index % 2 === 0
+  const [secRef, inView] = useInView(0.08)
+
+  return (
+    <section
+      id={policy.id}
+      ref={secRef}
+      style={{
+        minHeight: '80vh',
+        padding: '9rem 4rem',
+        display: 'flex',
+        alignItems: 'center',
+        borderTop: `1px solid ${C.border}`,
+        background: isEven ? C.bg : C.surface,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Top color bar */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
+        background: policy.color,
+        opacity: inView ? 1 : 0,
+        transition: 'opacity 0.5s ease 0.1s',
+      }} />
+
+      {/* Ambient spot */}
+      <div style={{
+        position: 'absolute',
+        [isEven ? 'right' : 'left']: '-12%',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '50vw', height: '50vw',
+        borderRadius: '50%',
+        background: `radial-gradient(circle, ${policy.colorDim} 0%, transparent 65%)`,
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1.7fr',
+        gap: '6rem',
+        width: '100%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        position: 'relative',
+      }}>
+        {/* Stat block */}
+        <div style={{
+          order: isEven ? 0 : 1,
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : `translateX(${isEven ? -40 : 40}px)`,
+          transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.05s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.05s',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: '1rem',
+        }}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.67rem',
+            fontWeight: 500,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: policy.color,
+            margin: 0,
+          }}>
+            {policy.num} — {policy.eyebrow}
+          </p>
+
+          <div style={{
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 900,
+            fontSize: 'clamp(3rem, 7.5vw, 7rem)',
+            lineHeight: 0.88,
+            color: C.ink,
+          }}>
+            {policy.stat}
+          </div>
+
+          <p style={{
+            fontFamily: "'Fraunces', serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: '1rem',
+            color: C.muted,
+            lineHeight: 1.55,
+            margin: 0,
+            maxWidth: '18rem',
+            paddingLeft: '1rem',
+            borderLeft: `3px solid ${policy.color}`,
+          }}>
+            {policy.statSub}
+          </p>
+        </div>
+
+        {/* Content block */}
+        <div style={{
+          order: isEven ? 1 : 0,
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : `translateX(${isEven ? 40 : -40}px)`,
+          transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: '1.5rem',
+        }}>
+          <h2 style={{
+            fontFamily: "'Fraunces', serif",
+            fontWeight: 600,
+            fontSize: 'clamp(1.7rem, 2.8vw, 2.6rem)',
+            lineHeight: 1.2,
+            color: C.ink,
+            margin: 0,
+          }}>
+            {policy.title}
+          </h2>
+
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: '0.94rem',
+            lineHeight: 1.9,
+            color: C.mutedHi,
+            margin: 0,
+            maxWidth: '38rem',
+          }}>
+            {policy.body}
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {policy.bullets.map((bullet, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '0.85rem',
+                  opacity: inView ? 1 : 0,
+                  transform: inView ? 'none' : 'translateX(18px)',
+                  transition: `opacity 0.65s ease ${0.38 + i * 0.09}s, transform 0.65s ease ${0.38 + i * 0.09}s`,
+                }}
+              >
+                <div style={{
+                  flexShrink: 0,
+                  marginTop: '0.48rem',
+                  width: '5px',
+                  height: '5px',
+                  borderRadius: '50%',
+                  background: policy.color,
+                }} />
+                <span style={{
+                  fontFamily: "'Public Sans', sans-serif",
+                  fontWeight: 400,
+                  fontSize: '0.9rem',
+                  color: C.mutedHi,
+                  lineHeight: 1.65,
+                }}>
+                  {bullet}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ── Manifesto ──────────────────────────────────────────────────────────────
+
+function Manifesto() {
+  const [ref, inView] = useInView(0.18)
+  return (
+    <section
+      ref={ref}
+      style={{
+        padding: '11rem 4rem',
+        textAlign: 'center',
+        background: C.navy,
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : 'translateY(28px)',
+          transition: 'opacity 0.9s ease 0.05s, transform 0.9s ease 0.05s',
+        }}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontSize: '0.67rem',
+            fontWeight: 500,
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.38)',
+            marginBottom: '2.8rem',
+          }}>
+            The Bottom Line
+          </p>
+        </div>
+
+        <div style={{
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : 'translateY(38px)',
+          transition: 'opacity 1s ease 0.18s, transform 1s ease 0.18s',
+        }}>
+          <blockquote style={{
+            fontFamily: "'Fraunces', serif",
+            fontStyle: 'italic',
+            fontWeight: 300,
+            fontSize: 'clamp(1.7rem, 3.8vw, 3.3rem)',
+            color: '#fff',
+            lineHeight: 1.35,
+            margin: '0 0 2.5rem',
+          }}>
+            "Georgia has the assets. The coast, the rivers, the land, the climate — and a growing population ready to be led somewhere great. What's been missing is the will."
+          </blockquote>
+        </div>
+
+        <div style={{
+          opacity: inView ? 1 : 0,
+          transition: 'opacity 1s ease 0.36s',
+        }}>
+          <p style={{
+            fontFamily: "'Public Sans', sans-serif",
+            fontWeight: 300,
+            fontSize: '0.93rem',
+            color: 'rgba(255,255,255,0.52)',
+            lineHeight: 1.9,
+            maxWidth: '520px',
+            margin: '0 auto',
+          }}>
+            This is a blueprint for a Georgia that competes on every front — fiscally, economically, and culturally. The infrastructure is real. The natural assets are real. The only missing ingredient is leadership willing to act.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ── Footer ─────────────────────────────────────────────────────────────────
+
+function Footer() {
+  return (
+    <footer style={{
+      padding: '2.5rem 4rem',
+      borderTop: `1px solid ${C.border}`,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      background: C.bg,
+      flexWrap: 'wrap',
+      gap: '1rem',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <img
+          src={eagleLogo}
+          alt="USA First Lab"
+          style={{
+            width: '28px',
+            height: '28px',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            imageRendering: 'pixelated',
+            borderRadius: '2px',
+          }}
+        />
+        <div style={{
+          fontFamily: "'Big Shoulders Display', sans-serif",
+          fontWeight: 900,
+          fontSize: '1rem',
+          color: C.navy,
+          letterSpacing: '0.07em',
+          textTransform: 'uppercase',
+        }}>
+          USA First Lab
+        </div>
+      </div>
+      <div style={{
+        fontFamily: "'Fraunces', serif",
+        fontStyle: 'italic',
+        fontWeight: 300,
+        fontSize: '0.9rem',
+        color: C.muted,
+      }}>
+        A framework for bold leadership
+      </div>
+      <div style={{
+        fontFamily: "'Public Sans', sans-serif",
+        fontSize: '0.7rem',
+        color: C.muted,
+      }}>
+        usafirstlab.org
+      </div>
+    </footer>
+  )
+}
+
+// ── App ────────────────────────────────────────────────────────────────────
+
+export default function App() {
+  return (
+    <div style={{ background: C.bg, color: C.ink, minHeight: '100vh', overflowX: 'hidden' }}>
+      <ScrollProgress />
+      <Nav />
+      <Hero />
+      <StatStrip />
+      {POLICIES.map((policy, i) => (
+        <PolicySection key={policy.id} policy={policy} index={i} />
+      ))}
+      <Manifesto />
+      <Footer />
+    </div>
+  )
+}
