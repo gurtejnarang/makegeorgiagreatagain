@@ -24,7 +24,15 @@ const C = {
 
 const POLICIES = [
   {
-    id: 'infrastructure', num: '01', color: '#BF2033', colorDim: 'rgba(191,32,51,0.06)',
+    id: 'tax', num: '01', color: '#1C2B4E', colorDim: 'rgba(28,43,78,0.06)',
+    eyebrow: 'Tax Repeal',
+    title: "Don't Tax My Home. Don't Tax My Income.",
+    stat: '0%', statSub: 'The target for both income and property tax.',
+    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and let a booming tourism economy carry the load, not Georgia families.",
+    bullets: ["Eliminate state income tax to match Florida and Tennessee","Abolish property tax on primary residences","Shift to a broad-based consumption and sales tax model","Drive an aggressive tourism boom that lowers the financial burden on every Georgian — the same playbook Tennessee and Florida already run"],
+  },
+  {
+    id: 'infrastructure', num: '02', color: '#BF2033', colorDim: 'rgba(191,32,51,0.06)',
     eyebrow: 'Infrastructure',
     title: 'Two Airports. One Coast. No More Excuses.',
     stat: 'SAV + BQK', statSub: 'Both underperforming. Both ready for activation.',
@@ -32,20 +40,12 @@ const POLICIES = [
     bullets: ["Upgrade SAV or fully activate BQK as a regional hub","Direct international routes for coast-bound travelers","Break Atlanta's monopoly on Georgia air traffic","Unlock hotel, logistics and business development downstream"],
   },
   {
-    id: 'coastal', num: '02', color: '#4A8BC4', colorDim: 'rgba(74,139,196,0.06)',
+    id: 'coastal', num: '03', color: '#4A8BC4', colorDim: 'rgba(74,139,196,0.06)',
     eyebrow: 'Coastal Identity',
     title: 'Brand the Coast Like We Mean It.',
     stat: '100 Mi.', statSub: 'Of coastline Charleston is eating our lunch on.',
     body: "Jekyll. Cumberland. Tybee. The Golden Isles. Georgia's barrier islands are world-class assets treated like budget afterthoughts. Maintain them to Sea Island standards, market them aggressively, and build the Georgia Coast into a destination that competes with Charleston, Hilton Head, and Amelia Island.",
     bullets: ["Fund barrier island maintenance to Sea Island standards","Create a unified Georgia Coast national tourism brand","Extend Savannah's culinary and cultural identity southward","Compete directly for the Charleston and Hilton Head visitor"],
-  },
-  {
-    id: 'tax', num: '03', color: '#1C2B4E', colorDim: 'rgba(28,43,78,0.06)',
-    eyebrow: 'Tax Reform',
-    title: "Don't Tax My Home. Don't Tax My Income.",
-    stat: '0%', statSub: 'The target for both income and property tax.',
-    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and let a booming tourism economy carry the load, not Georgia families.",
-    bullets: ["Eliminate state income tax to match Florida and Tennessee","Abolish property tax on primary residences","Shift to a broad-based consumption and sales tax model","Drive an aggressive tourism boom that lowers the financial burden on every Georgian — the same playbook Tennessee and Florida already run"],
   },
   {
     id: 'southga', num: '04', color: '#3D6B35', colorDim: 'rgba(61,107,53,0.06)',
@@ -152,9 +152,9 @@ function Nav() {
   }, [])
 
   const navItems = [
+    { label: 'Tax Repeal', id: 'tax' },
     { label: 'Infrastructure', id: 'infrastructure' },
     { label: 'Coast', id: 'coastal' },
-    { label: 'Tax Reform', id: 'tax' },
     { label: 'South GA', id: 'southga' },
     { label: 'River', id: 'river' },
   ]
