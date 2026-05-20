@@ -35,7 +35,7 @@ const POLICIES = [
     id: 'infrastructure', num: '02', color: '#BF2033', colorDim: 'rgba(191,32,51,0.06)',
     eyebrow: 'Infrastructure',
     title: 'Atlanta Is Not Georgia. Georgia Is Georgia.',
-    stat: '4 Airports', statSub: 'Every corner of Georgia deserves its own front door.',
+    stat: 'Build Airports', statSub: 'Every corner of Georgia deserves its own front door.',
     body: "Florida built ten airports. Georgia built one that matters — and then told the rest of the state to drive to Atlanta. That ends. Every region of Georgia gets its own gateway: a coastal hub on the Savannah or Brunswick corridor, a South Georgia airport that opens the door to hunting, agriculture, and rural tourism, an East Georgia hub through Augusta that pulls visitors straight from the Carolinas, and a Central Georgia connector in Macon that ties it all together. Open the doors to the wonders of all of Georgia, not just Atlanta.",
     bullets: [
       "Coastal Gateway — upgrade SAV or fully activate BQK with international routes",
