@@ -34,10 +34,16 @@ const POLICIES = [
   {
     id: 'infrastructure', num: '02', color: '#BF2033', colorDim: 'rgba(191,32,51,0.06)',
     eyebrow: 'Infrastructure',
-    title: 'Two Airports. One Coast. No More Excuses.',
-    stat: 'SAV + BQK', statSub: 'Both underperforming. Both ready for activation.',
-    body: "Savannah has the bones of a world-class regional airport. Brunswick has a runway with nothing behind it. Strong leadership picks one — or builds both — into a full coastal gateway that ends Atlanta's stranglehold and puts Georgia's coast on the global travel map.",
-    bullets: ["Upgrade SAV or fully activate BQK as a regional hub","Direct international routes for coast-bound travelers","Break Atlanta's monopoly on Georgia air traffic","Unlock hotel, logistics and business development downstream"],
+    title: 'Atlanta Is Not Georgia. Georgia Is Georgia.',
+    stat: '4 Airports', statSub: 'Every corner of Georgia deserves its own front door.',
+    body: "Florida built ten airports. Georgia built one that matters — and then told the rest of the state to drive to Atlanta. That ends. Every region of Georgia gets its own gateway: a coastal hub on the Savannah or Brunswick corridor, a South Georgia airport that opens the door to hunting, agriculture, and rural tourism, an East Georgia hub through Augusta that pulls visitors straight from the Carolinas, and a Central Georgia connector in Macon that ties it all together. Open the doors to the wonders of all of Georgia, not just Atlanta.",
+    bullets: [
+      "Coastal Gateway — upgrade SAV or fully activate BQK with international routes",
+      "South Georgia Hub — Valdosta or Tifton area, serving the hunting and agri-tourism economy",
+      "East Georgia Gateway — expand Augusta Regional into a real hub, front door from the Carolinas",
+      "Central Georgia Connector — Macon, equidistant from every major Georgia city",
+      "Break Atlanta's monopoly so every region can stand on its own",
+    ],
   },
   {
     id: 'coastal', num: '03', color: '#4A8BC4', colorDim: 'rgba(74,139,196,0.06)',
