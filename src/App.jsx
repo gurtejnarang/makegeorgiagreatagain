@@ -28,20 +28,20 @@ const POLICIES = [
     eyebrow: 'Tax Repeal',
     title: "Don't Tax My Home. Don't Tax My Income.",
     stat: '0%', statSub: 'The target for both income and property tax.',
-    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own — that ends too. Redirect to a broad consumption tax and let a booming tourism economy carry the load, not Georgia families.",
-    bullets: ["Eliminate state income tax to match Florida and Tennessee","Abolish property tax on primary residences","Shift to a broad-based consumption and sales tax model","Drive an aggressive tourism boom that lowers the financial burden on every Georgian — the same playbook Tennessee and Florida already run"],
+    body: "Florida doesn't tax income. Tennessee doesn't tax income. Neither should Georgia. And property tax is rent paid to the government on a home you already own that ends too. Redirect to a broad consumption tax and let a booming tourism economy carry the load, not Georgia families.",
+    bullets: ["Eliminate state income tax to match Florida and Tennessee","Abolish property tax on primary residences","Shift to a broad-based consumption and sales tax model","Drive an aggressive tourism boom that lowers the financial burden on every Georgian the same playbook Tennessee and Florida already run"],
   },
   {
     id: 'infrastructure', num: '02', color: '#BF2033', colorDim: 'rgba(191,32,51,0.06)',
     eyebrow: 'Infrastructure',
     title: 'Atlanta Is Not Georgia. Georgia Is Georgia.',
     stat: 'Build Airports', statSub: 'Every corner of Georgia deserves its own front door.',
-    body: "Florida built ten airports. Georgia built one that matters — and then told the rest of the state to drive to Atlanta. That ends. Every region of Georgia gets its own gateway: a coastal hub on the Savannah or Brunswick corridor, a South Georgia airport that opens the door to hunting, agriculture, and rural tourism, an East Georgia hub through Augusta that pulls visitors straight from the Carolinas, and a Central Georgia connector in Macon that ties it all together. Open the doors to the wonders of all of Georgia, not just Atlanta.",
+    body: "Florida built ten airports. Georgia built one that matters and then told the rest of the state to drive to Atlanta. That ends. Every region of Georgia gets its own gateway: a coastal hub on the Savannah or Brunswick corridor, a South Georgia airport that opens the door to hunting, agriculture, and rural tourism, an East Georgia hub through Augusta that pulls visitors straight from the Carolinas, and a Central Georgia connector in Macon that ties it all together. Open the doors to the wonders of all of Georgia, not just Atlanta.",
     bullets: [
-      "Coastal Gateway — upgrade SAV or fully activate BQK with international routes",
-      "South Georgia Hub — Valdosta or Tifton area, serving the hunting and agri-tourism economy",
-      "East Georgia Gateway — expand Augusta Regional into a real hub, front door from the Carolinas",
-      "Central Georgia Connector — Macon, equidistant from every major Georgia city",
+      "Coastal Gateway: Upgrade SAV or fully activate BQK with international routes",
+      "South Georgia Hub: Valdosta or Tifton area, serving the hunting and agri-tourism economy",
+      "East Georgia Gateway: Expand Augusta Regional into a real hub, front door from the Carolinas",
+      "Central Georgia Connector: Macon, equidistant from every major Georgia city",
       "Break Atlanta's monopoly so every region can stand on its own",
     ],
   },
@@ -58,21 +58,21 @@ const POLICIES = [
     eyebrow: 'South Georgia',
     title: 'Turn the Wild South Into an Industry.',
     stat: '$1.5B', statSub: 'Annual feral hog damage. Flip it into revenue.',
-    body: "Texas built an entire aerial hunting industry around feral hogs — Georgia has the same problem, the same land, and none of the commercial infrastructure. License outfitters, develop hunting lodges, and let South Georgia rural counties participate in an economy that doesn't depend on Atlanta.",
+    body: "Texas built an entire aerial hunting industry around feral hogs Georgia has the same problem, the same land, and none of the commercial infrastructure. License outfitters, develop hunting lodges, and let South Georgia rural counties participate in an economy that doesn't depend on Atlanta.",
     bullets: ["License commercial aerial hog hunting operations statewide","Develop Texas-style hunting tourism across South Georgia","Expand agri-tourism and outfitter certification programs","Economic engine for counties currently left behind"],
   },
   {
     id: 'river', num: '05', color: '#2D5F8A', colorDim: 'rgba(45,95,138,0.06)',
     eyebrow: 'Natural Resources',
     title: "Nashville Did It. Austin Did It. Georgia Hasn't.",
-    stat: '430 Mi.', statSub: 'God already gave us the river — time to build on it.',
-    body: "From Roswell and Sandy Springs through Atlanta down to Columbus and the Gulf — every mile of the Chattahoochee gets activated. Restaurants, bars, marinas, trails, boat launches, and riverfront districts up and down the full corridor. And underpinning all of it: a statewide river cleanliness initiative so Georgia kids and families can actually swim and play in the water without getting sick. The whole river. Clean. Open. Alive.",
-    bullets: ["Extend and improve the navigable channel from Columbus to the Gulf","Develop marinas, boat launches, and water taxi infrastructure along the lower river","Build restaurant, bar, and entertainment districts the entire length of the river","Statewide water quality initiative — clean enough for kids and families to swim in","Trails, riverfront parks, and recreation from the mountains to the Gulf","Turn the Chattahoochee into a statewide economic asset every Georgian can enjoy"],
+    stat: '430 Mi.', statSub: 'God already gave us the river time to build on it.',
+    body: "From Roswell and Sandy Springs through Atlanta down to Columbus and the Gulf every mile of the Chattahoochee gets activated. Restaurants, bars, marinas, trails, boat launches, and riverfront districts up and down the full corridor. And underpinning all of it: a statewide river cleanliness initiative so Georgia kids and families can actually swim and play in the water without getting sick. The whole river. Clean. Open. Alive.",
+    bullets: ["Extend and improve the navigable channel from Columbus to the Gulf","Develop marinas, boat launches, and water taxi infrastructure along the lower river","Build restaurant, bar, and entertainment districts the entire length of the river","Statewide water quality initiative clean enough for kids and families to swim in","Trails, riverfront parks, and recreation from the mountains to the Gulf","Turn the Chattahoochee into a statewide economic asset every Georgian can enjoy"],
   },
 ]
 
 const GA_CITIES = [
-  { city: 'Atlanta',          role: 'Finance, tech, culture — the engine' },
+  { city: 'Atlanta',          role: 'Finance, tech, culture the engine' },
   { city: 'Savannah',         role: 'History, food, coastal charm' },
   { city: 'Columbus',         role: 'River economy, military, affordable growth' },
   { city: 'Augusta',          role: 'Golf, medical, quiet Southern character' },
@@ -88,11 +88,11 @@ const GA_ASSETS = [
   },
   {
     category: 'All 7 Seasons', color: '#3D6B35',
-    items: ['Spring in Savannah — one of the most beautiful in the country','Summer on the coast and the lakes','Fall foliage across the North Georgia mountains','Mild winters that never chase people indoors','A 12-month tourism pitch — not a seasonal one','Something going on every single month of the year'],
+    items: ['Spring in Savannah one of the most beautiful in the country','Summer on the coast and the lakes','Fall foliage across the North Georgia mountains','Mild winters that never chase people indoors','A 12-month tourism pitch not a seasonal one','Something going on every single month of the year'],
   },
   {
     category: 'Universities', color: '#BF2033',
-    items: ['UGA — flagship SEC school and Athens cultural engine','Georgia Tech — world-class engineering and research','Emory — top-tier medical university, CDC next door','SCAD — arguably the best art and design school in the country'],
+    items: ['UGA flagship SEC school and Athens cultural engine','Georgia Tech world-class engineering and research','Emory top-tier medical university, CDC next door','SCAD arguably the best art and design school in the country'],
   },
 ]
 
@@ -284,7 +284,7 @@ function Hero() {
         </div>
         <div style={{ ...anim(0.52), marginTop: '1.8rem' }}>
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: isMobile ? '1rem' : '0.95rem', fontWeight: 400, color: C.mutedHi, lineHeight: 1.85, maxWidth: '28rem', margin: 0 }}>
-            Five pillars for a Georgia that competes with Florida, Texas, and Tennessee — not just geographically, but economically, fiscally, and culturally.
+            Five pillars for a Georgia that competes with Florida, Texas, and Tennessee not just geographically, but economically, fiscally, and culturally.
           </p>
         </div>
         <div style={{ ...anim(0.66), marginTop: '2.4rem' }}>
@@ -322,10 +322,10 @@ function FullGeorgia() {
               THE FULL GEORGIA
             </h2>
             <p style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '1.05rem' : '1.15rem', color: C.muted, lineHeight: 1.7, margin: '0 0 1.2rem' }}>
-              Florida doesn't run on Miami alone. It runs on Miami, Tampa, Orlando, Jacksonville, St. Pete, West Palm — a full roster of cities each pulling their own weight.
+              Florida doesn't run on Miami alone. It runs on Miami, Tampa, Orlando, Jacksonville, St. Pete, West Palm a full roster of cities each pulling their own weight.
             </p>
             <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: '0.94rem', color: C.mutedHi, lineHeight: 1.9, margin: 0 }}>
-              Right now Georgia runs on Atlanta and a supporting cast nobody's bothered to develop. The Full Georgia means every region has an identity, an economy, and a reason to exist on the national map — independently.
+              Right now Georgia runs on Atlanta and a supporting cast nobody's bothered to develop. The Full Georgia means every region has an identity, an economy, and a reason to exist on the national map independently.
             </p>
           </div>
 
@@ -374,7 +374,7 @@ function CaseForGeorgia() {
             THE CASE FOR GEORGIA
           </h2>
           <p style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '1.05rem' : '1.2rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7, maxWidth: '42rem', margin: 0 }}>
-            Georgia is quietly one of the most complete states in the country. Mountains, coast, rivers, lakes, hunting land, elite universities, a world-class city — and still underpriced compared to Florida and Texas. That's the pitch.
+            Georgia is quietly one of the most complete states in the country. Mountains, coast, rivers, lakes, hunting land, elite universities, a world-class city and still underpriced compared to Florida and Texas. That's the pitch.
           </p>
         </div>
 
@@ -401,7 +401,7 @@ function CaseForGeorgia() {
 
         <div style={{ marginTop: isMobile ? '3.5rem' : '5rem', paddingTop: '2.5rem', borderTop: '1px solid rgba(255,255,255,0.08)', opacity: inView ? 1 : 0, transition: 'opacity 1s ease 0.7s' }}>
           <p style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '1.2rem' : 'clamp(1.3rem, 2.5vw, 2rem)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.5, margin: 0, maxWidth: '52rem' }}>
-            "Most states sell one or two seasons. Georgia has something going on every single month of the year — and a geography stack most states would trade anything for."
+            "Most states sell one or two seasons. Georgia has something going on every single month of the year and a geography stack most states would trade anything for."
           </p>
         </div>
       </div>
@@ -483,7 +483,7 @@ function PolicySection({ policy, index }) {
           display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '0.9rem',
         }}>
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.67rem', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: policy.color, margin: 0 }}>
-            {policy.num} — {policy.eyebrow}
+            {policy.num}: {policy.eyebrow}
           </p>
           <div style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '3.5rem' : 'clamp(3rem, 7.5vw, 7rem)', lineHeight: 0.88, color: C.ink }}>
             {policy.stat}
@@ -538,12 +538,12 @@ function Manifesto() {
         </div>
         <div style={{ opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(35px)', transition: 'opacity 1s ease 0.18s, transform 1s ease 0.18s' }}>
           <blockquote style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '1.5rem' : 'clamp(1.7rem, 3.8vw, 3.3rem)', color: '#fff', lineHeight: 1.38, margin: '0 0 2.5rem' }}>
-            "Georgia has the assets. The coast, the rivers, the land, the climate — and a growing population ready to be led somewhere great. What's been missing is the will."
+            "Georgia has the assets. The coast, the rivers, the land, the climate and a growing population ready to be led somewhere great. What's been missing is the will."
           </blockquote>
         </div>
         <div style={{ opacity: inView ? 1 : 0, transition: 'opacity 1s ease 0.36s' }}>
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '0.93rem', color: 'rgba(255,255,255,0.52)', lineHeight: 1.9, maxWidth: '520px', margin: '0 auto' }}>
-            This is a blueprint for a Georgia that competes on every front — fiscally, economically, and culturally. The infrastructure is real. The natural assets are real. The only missing ingredient is leadership willing to act.
+            This is a blueprint for a Georgia that competes on every front fiscally, economically, and culturally. The infrastructure is real. The natural assets are real. The only missing ingredient is leadership willing to act.
           </p>
         </div>
       </div>
