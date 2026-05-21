@@ -270,8 +270,8 @@ function Hero() {
       {/* Text */}
       <div style={{ padding: isMobile ? '7rem 1.5rem 3rem' : '10rem 4rem 6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={anim(0.2)}>
-          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.68rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.red, margin: '0 0 1.4rem' }}>
-            A Policy Vision by USA First Lab
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.78rem', fontWeight: 400, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.red, margin: '0 0 1.4rem' }}>
+            USA First Lab
           </p>
         </div>
         <div style={anim(0.36)}>
@@ -283,12 +283,12 @@ function Hero() {
           </h2>
         </div>
         <div style={{ ...anim(0.52), marginTop: '1.8rem' }}>
-          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: isMobile ? '1rem' : '0.95rem', fontWeight: 300, color: C.mutedHi, lineHeight: 1.85, maxWidth: '28rem', margin: 0 }}>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: isMobile ? '1rem' : '0.95rem', fontWeight: 400, color: C.mutedHi, lineHeight: 1.85, maxWidth: '28rem', margin: 0 }}>
             Five pillars for a Georgia that competes with Florida, Texas, and Tennessee — not just geographically, but economically, fiscally, and culturally.
           </p>
         </div>
         <div style={{ ...anim(0.66), marginTop: '2.4rem' }}>
-          <a href="#infrastructure" style={{ display: 'inline-block', fontFamily: "'Public Sans', sans-serif", fontSize: '0.75rem', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#fff', background: C.navy, padding: '0.9rem 2.2rem', textDecoration: 'none', borderRadius: '2px' }}>
+          <a href="#tax" style={{ display: 'inline-block', fontFamily: "'Public Sans', sans-serif", fontSize: '0.78rem', fontWeight: 400, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff', background: C.navy, padding: '0.9rem 2.2rem', textDecoration: 'none', borderRadius: '2px' }}>
             Read the Vision
           </a>
         </div>
