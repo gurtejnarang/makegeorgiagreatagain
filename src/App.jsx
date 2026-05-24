@@ -49,9 +49,15 @@ const POLICIES = [
     id: 'coastal', num: '03', color: '#4A8BC4', colorDim: 'rgba(74,139,196,0.06)',
     eyebrow: 'Coastal Identity',
     title: 'Brand the Coast Like We Mean It.',
-    stat: '100 Mi.', statSub: 'Of coastline Charleston is eating our lunch on.',
-    body: "Jekyll. Cumberland. Tybee. The Golden Isles. Georgia's barrier islands are world-class assets treated like budget afterthoughts. Maintain them to Sea Island standards, market them aggressively, and build the Georgia Coast into a destination that competes with Charleston, Hilton Head, and Amelia Island.",
-    bullets: ["Fund barrier island maintenance to Sea Island standards","Create a unified Georgia Coast national tourism brand","Extend Savannah's culinary and cultural identity southward","Compete directly for the Charleston and Hilton Head visitor"],
+    stat: '100 Mi.', statSub: 'The marsh is not the obstacle. The marsh is the scenery.',
+    body: "Yes, Georgia's coast is 70% salt marsh. So is South Carolina's. Hilton Head, Kiawah, Folly Beach, Sullivan's Island, Isle of Palms, all built on the buildable portions while the marsh became the backdrop that makes it feel wild, scenic, and worth the premium. Nobody is proposing to build on marsh. The case is simpler: Georgia owns some of the most beautiful barrier islands on the East Coast and the only thing standing between that land and its potential is leadership that gets out of its own way. Tybee is underbuilt. St. Simons needs investment. Jekyll Island is state-owned with a master plan collecting dust. Sea Island already proves the model works. The land is not the problem. The leadership is.",
+    bullets: [
+      "Tybee Island: fully accessible and underbuilt relative to its potential",
+      "St. Simons Island: infrastructure already exists, needs investment and marketing",
+      "Jekyll Island: state-owned, master plan approved, waiting on leadership to act",
+      "Sea Island: already world class, proves the model works, needs to be scaled",
+      "Stop hiding behind the marsh argument. Build on the buildable land and let the marsh sell itself",
+    ],
   },
   {
     id: 'southga', num: '04', color: '#3D6B35', colorDim: 'rgba(61,107,53,0.06)',
