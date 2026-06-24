@@ -152,7 +152,7 @@ function ScrollProgress() {
 
 // ── Nav ────────────────────────────────────────────────────────────────────
 
-function Nav() {
+function Nav({ onGetInvolved }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const isMobile = useIsMobile()
@@ -190,17 +190,39 @@ function Nav() {
         </a>
 
         {isMobile ? (
-          <button onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.4rem', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            {[0,1,2].map(i => (
-              <div key={i} style={{ width: '22px', height: '2px', background: C.navy, borderRadius: '2px', transition: 'all 0.25s ease',
-                transform: menuOpen ? (i === 0 ? 'rotate(45deg) translate(5px, 5px)' : i === 2 ? 'rotate(-45deg) translate(5px, -5px)' : 'scaleX(0)') : 'none',
-                opacity: menuOpen && i === 1 ? 0 : 1,
-              }} />
-            ))}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <button onClick={onGetInvolved} style={{
+              background: C.red, border: 'none', borderRadius: '2px',
+              fontFamily: "'Public Sans', sans-serif", fontSize: '0.65rem',
+              fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase',
+              color: '#fff', padding: '0.5rem 0.9rem', cursor: 'pointer',
+            }}>
+              Get Involved
+            </button>
+            <button onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.4rem', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+              {[0,1,2].map(i => (
+                <div key={i} style={{ width: '22px', height: '2px', background: C.navy, borderRadius: '2px', transition: 'all 0.25s ease',
+                  transform: menuOpen ? (i === 0 ? 'rotate(45deg) translate(5px, 5px)' : i === 2 ? 'rotate(-45deg) translate(5px, -5px)' : 'scaleX(0)') : 'none',
+                  opacity: menuOpen && i === 1 ? 0 : 1,
+                }} />
+              ))}
+            </button>
+          </div>
         ) : (
-          <div style={{ display: 'flex', gap: '2.5rem' }}>
+          <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
             {navItems.map(item => <NavLink key={item.id} href={`#${item.id}`} label={item.label} />)}
+            <button onClick={onGetInvolved} style={{
+              background: C.red, border: 'none', borderRadius: '2px',
+              fontFamily: "'Public Sans', sans-serif", fontSize: '0.72rem',
+              fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase',
+              color: '#fff', padding: '0.6rem 1.4rem', cursor: 'pointer',
+              transition: 'opacity 0.2s ease',
+            }}
+            onMouseEnter={e => e.target.style.opacity = '0.85'}
+            onMouseLeave={e => e.target.style.opacity = '1'}
+            >
+              Get Involved
+            </button>
           </div>
         )}
       </nav>
@@ -236,6 +258,19 @@ function Nav() {
               {item.label}
             </a>
           ))}
+          <button onClick={() => { onGetInvolved(); setMenuOpen(false) }} style={{
+            display: 'block', width: '100%', marginTop: '1rem',
+            fontFamily: "'Big Shoulders Display', sans-serif",
+            fontWeight: 700, fontSize: '1.6rem',
+            color: '#fff', background: C.red,
+            border: 'none', padding: '0.7rem 0',
+            letterSpacing: '0.04em', textTransform: 'uppercase',
+            textAlign: 'left', cursor: 'pointer', borderRadius: '2px',
+            opacity: menuOpen ? 1 : 0,
+            transition: `opacity 0.3s ease ${navItems.length * 0.05}s`,
+          }}>
+            Get Involved
+          </button>
         </div>
       )}
     </>
@@ -595,13 +630,245 @@ function Footer() {
 
 // ── App ────────────────────────────────────────────────────────────────────
 
+// ── Stay in the Loop Popup ─────────────────────────────────────────────────
+
+// To find your Google Form entry IDs:
+// 1. Open your Google Form in Chrome
+// 2. Right-click → Inspect → Network tab
+// 3. Fill and submit the form once
+// 4. Look for a request to "formResponse" — click it
+// 5. Under "Payload" you'll see entry.XXXXXXXXX for each field
+// Replace the ENTRY_* constants below with your actual IDs
+
+const FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScERPX-UWK-2ArJji7ePv1FO0zErxMk2HBjgZJ-tiEYT1Nxdw/formResponse'
+const ENTRY_NAME  = 'entry.1426081531'
+const ENTRY_EMAIL = 'entry.570189540'
+const ENTRY_PHONE = 'entry.411676159'
+const ENTRY_INFO  = 'entry.1077969046'
+
+function Popup({ onClose }) {
+  const isMobile = useIsMobile()
+  const [form, setForm] = useState({ name: '', email: '', phone: '', info: '' })
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+
+  const handleChange = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }))
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email) return
+    setSubmitting(true)
+    const body = new FormData()
+    body.append(ENTRY_NAME,  form.name)
+    body.append(ENTRY_EMAIL, form.email)
+    body.append(ENTRY_PHONE, form.phone)
+    body.append(ENTRY_INFO,  form.info)
+    try {
+      await fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body })
+    } catch (e) {}
+    setSubmitting(false)
+    setSubmitted(true)
+  }
+
+  const inputStyle = {
+    width: '100%',
+    background: 'transparent',
+    border: 'none',
+    borderBottom: `1px solid ${C.border}`,
+    padding: '0.7rem 0',
+    fontFamily: "'Public Sans', sans-serif",
+    fontSize: '0.95rem',
+    fontWeight: 400,
+    color: C.ink,
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s ease',
+  }
+
+  const labelStyle = {
+    fontFamily: "'Public Sans', sans-serif",
+    fontSize: '0.65rem',
+    fontWeight: 500,
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: C.muted,
+    display: 'block',
+    marginBottom: '0.2rem',
+  }
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 2000,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'rgba(20,20,20,0.55)',
+        backdropFilter: 'blur(6px)',
+        padding: '1.5rem',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: C.bg,
+          width: '100%',
+          maxWidth: '480px',
+          borderRadius: '3px',
+          overflow: 'hidden',
+          boxShadow: '0 30px 70px rgba(0,0,0,0.25)',
+        }}
+      >
+        {/* Top accent bar */}
+        <div style={{ height: '4px', background: C.navy }} />
+
+        <div style={{ padding: isMobile ? '1.8rem 1.5rem' : '2.5rem 2.5rem' }}>
+
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+            <div>
+              <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.65rem', fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.red, margin: '0 0 0.5rem' }}>
+                USA First Lab
+              </p>
+              <h3 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '2rem' : '2.4rem', color: C.navy, margin: 0, lineHeight: 1, letterSpacing: '0.02em' }}>
+                STAY IN THE LOOP
+              </h3>
+              <p style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: '0.95rem', color: C.muted, margin: '0.6rem 0 0', lineHeight: 1.6 }}>
+                Be the first to hear updates on The Full Georgia.
+              </p>
+            </div>
+            <button
+              onClick={onClose}
+              style={{ background: 'none', border: `1px solid ${C.border}`, borderRadius: '2px', width: '30px', height: '30px', cursor: 'pointer', color: C.muted, fontSize: '0.85rem', flexShrink: 0, marginLeft: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              ✕
+            </button>
+          </div>
+
+          {submitted ? (
+            <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+              <div style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: '1.8rem', color: C.navy, marginBottom: '0.8rem' }}>
+                YOU'RE IN.
+              </div>
+              <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: '0.9rem', color: C.muted, lineHeight: 1.7, margin: 0 }}>
+                Thanks for joining The Full Georgia movement. We'll be in touch.
+              </p>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
+              {/* Name */}
+              <div>
+                <label style={labelStyle}>Name *</label>
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={handleChange('name')}
+                  placeholder="Your full name"
+                  style={inputStyle}
+                  onFocus={e => e.target.style.borderBottomColor = C.navy}
+                  onBlur={e => e.target.style.borderBottomColor = C.border}
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label style={labelStyle}>Email *</label>
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange('email')}
+                  placeholder="your@email.com"
+                  style={inputStyle}
+                  onFocus={e => e.target.style.borderBottomColor = C.navy}
+                  onBlur={e => e.target.style.borderBottomColor = C.border}
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label style={labelStyle}>Phone</label>
+                <input
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange('phone')}
+                  placeholder="(000) 000-0000"
+                  style={inputStyle}
+                  onFocus={e => e.target.style.borderBottomColor = C.navy}
+                  onBlur={e => e.target.style.borderBottomColor = C.border}
+                />
+              </div>
+
+              {/* Additional Info */}
+              <div>
+                <label style={labelStyle}>Additional Information</label>
+                <textarea
+                  value={form.info}
+                  onChange={handleChange('info')}
+                  placeholder="Anything you'd like us to know..."
+                  rows={3}
+                  style={{
+                    ...inputStyle,
+                    resize: 'none',
+                    borderBottom: 'none',
+                    border: `1px solid ${C.border}`,
+                    padding: '0.7rem',
+                    borderRadius: '2px',
+                  }}
+                  onFocus={e => e.target.style.borderColor = C.navy}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </div>
+
+              {/* Submit */}
+              <button
+                onClick={handleSubmit}
+                disabled={!form.name || !form.email || submitting}
+                style={{
+                  background: (!form.name || !form.email) ? C.border : C.navy,
+                  border: 'none', borderRadius: '2px',
+                  fontFamily: "'Public Sans', sans-serif",
+                  fontSize: '0.75rem', fontWeight: 500,
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#fff', padding: '1rem',
+                  cursor: (!form.name || !form.email) ? 'not-allowed' : 'pointer',
+                  transition: 'background 0.2s ease',
+                  width: '100%',
+                }}
+              >
+                {submitting ? 'Submitting...' : 'Join the Movement'}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
+  const [showPopup, setShowPopup] = useState(false)
+  const [popupDismissed, setPopupDismissed] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const trigger = document.getElementById('full-georgia')
+      if (!trigger || popupDismissed) return
+      const rect = trigger.getBoundingClientRect()
+      if (rect.bottom < window.innerHeight * 0.5) setShowPopup(true)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [popupDismissed])
+
+  const handleClose = () => {
+    setShowPopup(false)
+    setPopupDismissed(true)
+  }
+
   return (
     <div style={{ background: C.bg, color: C.ink, minHeight: '100vh', overflowX: 'hidden' }}>
       <ScrollProgress />
-      <Nav />
+      <Nav onGetInvolved={() => setShowPopup(true)} />
       <Hero />
-      <FullGeorgia />
+      <div id="full-georgia"><FullGeorgia /></div>
       <CaseForGeorgia />
       <StatStrip />
       {POLICIES.map((policy, i) => (
@@ -609,6 +876,7 @@ export default function App() {
       ))}
       <Manifesto />
       <Footer />
+      {showPopup && <Popup onClose={handleClose} />}
     </div>
   )
 }
