@@ -63,9 +63,9 @@ const POLICIES = [
     id: 'southga', num: '04', color: '#3D6B35', colorDim: 'rgba(61,107,53,0.06)',
     eyebrow: 'South Georgia',
     title: 'Turn the Wild South Into an Industry.',
-    stat: '$1.5B', statSub: 'Annual feral hog damage. Flip it into revenue.',
-    body: "Texas built an entire aerial hunting industry around feral hogs Georgia has the same problem, the same land, and none of the commercial infrastructure. License outfitters, develop hunting lodges, and let South Georgia rural counties participate in an economy that doesn't depend on Atlanta.",
-    bullets: ["License commercial aerial hog hunting operations statewide","Develop Texas-style hunting tourism across South Georgia","Expand agri-tourism and outfitter certification programs","Economic engine for counties currently left behind"],
+    stat: '$20.7B', statSub: "What Georgia's outdoor recreation economy is worth. South Georgia should be driving that number — not watching it from the sideline.",
+    body: "Texas built an entire hunting industry and Georgia has the same opportunity, the same land, and none of the commercial infrastructure. License outfitters, develop hunting lodges, and let South Georgia rural counties participate in an economy that doesn't depend on Atlanta. The agritourism model is proven — Fredericksburg, Texas turned hunting ranches, farm stays, and open land into a destination that draws visitors from across the country. South Georgia has everything Fredericksburg had. It just needs leadership willing to build it.",
+    bullets: ["Georgia's rural counties generate $978M in tourism income with minimal infrastructure","Texas generates $192M in agritourism revenue — Georgia has the same assets and hasn't started","South Carolina grew agritourism income 125% in five years — Georgia hasn't tried","License commercial aerial hog hunting and expand outfitter certification statewide","Build the hunting lodge infrastructure that turns South Georgia into a national destination"],
   },
   {
     id: 'river', num: '05', color: '#2D5F8A', colorDim: 'rgba(45,95,138,0.06)',
@@ -457,7 +457,7 @@ function StatStrip() {
   const stats = [
     { val: '5', label: 'Policy Pillars' },
     { val: '430mi', label: 'Untapped River' },
-    { val: '$1.5B', label: 'Hog Damage Annually' },
+    { val: '$20.7B', label: 'Outdoor Recreation Potential' },
     { val: '100mi', label: 'Underused Coastline' },
     { val: '0%', label: 'Target Income Tax' },
   ]
@@ -849,10 +849,10 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const trigger = document.getElementById('full-georgia')
+      const trigger = document.getElementById('case-for-georgia')
       if (!trigger || popupDismissed) return
       const rect = trigger.getBoundingClientRect()
-      if (rect.bottom < window.innerHeight * 0.5) setShowPopup(true)
+      if (rect.top < window.innerHeight * 0.6) setShowPopup(true)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -869,7 +869,7 @@ export default function App() {
       <Nav onGetInvolved={() => setShowPopup(true)} />
       <Hero />
       <div id="full-georgia"><FullGeorgia /></div>
-      <CaseForGeorgia />
+      <div id="case-for-georgia"><CaseForGeorgia /></div>
       <StatStrip />
       {POLICIES.map((policy, i) => (
         <PolicySection key={policy.id} policy={policy} index={i} />
