@@ -327,12 +327,9 @@ function Hero() {
           </p>
         </div>
         <div style={anim(0.36)}>
-          <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
-            Make Georgia Great Again — a policy vision from USA First Lab
-          </h1>
-          <div aria-hidden="true" style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '5.5rem' : 'clamp(4.5rem, 9vw, 9rem)', lineHeight: 0.9, color: C.navy, margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
+          <h1 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '5.5rem' : 'clamp(4.5rem, 9vw, 9rem)', lineHeight: 0.9, color: C.navy, margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
             GEORGIA
-          </div>
+          </h1>
           <h2 style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '2.2rem' : 'clamp(1.8rem, 3.5vw, 3.2rem)', color: C.red, margin: 0 }}>
             Unleashed.
           </h2>
