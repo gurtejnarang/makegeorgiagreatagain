@@ -104,6 +104,17 @@ const GA_ASSETS = [
 
 // ── Hooks ──────────────────────────────────────────────────────────────────
 
+const LEDGER = [
+  { name: 'Hermeus',            what: 'Hypersonic aircraft, valued over $1.5B. Founded in Atlanta by a Georgia Tech graduate.', went: 'HQ moved to California, April 2026' },
+  { name: 'Mantis Space',       what: 'Building the first power grid in space. Founded in Kennesaw.',                            went: 'Chose Albuquerque. New Mexico projects $480M impact' },
+  { name: 'Durin',              what: 'Autonomous drilling for critical minerals. Came out of Georgia Tech\'s own incubator.',    went: 'Headquartered in El Segundo, California' },
+  { name: 'Nuclear Campuses',   what: 'Five states selected by the Dept. of Energy. Up to $50B and 25,000 jobs each.',           went: 'Georgia runs the newest reactors in America. Not selected' },
+  { name: 'Air Taxi Program',   what: 'FAA selected 26 states. Archer builds the aircraft in Covington, Georgia.',               went: 'Georgia was not included' },
+  { name: 'Anduril',            what: '$1 billion weapons factory. Valued at $61B.',                                             went: 'Built in Ohio' },
+  { name: 'Saronic',            what: 'Autonomous warships for the Navy. $300M shipyard expansion.',                             went: 'Franklin, Louisiana. Population 3,000' },
+  { name: 'SpaceX Spaceport',   what: '$100 billion. 3,000 jobs at $92,600 average salary. Its own airport.',                    went: 'Vermilion Parish, Louisiana' },
+]
+
 function useIsMobile() {
   const [mobile, setMobile] = useState(window.innerWidth < 768)
   useEffect(() => {
@@ -398,6 +409,98 @@ function FullGeorgia() {
 }
 
 // ── The Case for Georgia ───────────────────────────────────────────────────
+
+function TheLedger() {
+  const [ref, inView] = useInView(0.05)
+  const isMobile = useIsMobile()
+
+  return (
+    <section ref={ref} style={{ padding: isMobile ? '4rem 1.5rem' : '8rem 4rem', background: C.bg, borderTop: `1px solid ${C.border}` }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: isMobile ? '2.5rem' : '4rem', opacity: inView ? 1 : 0, transform: inView ? 'none' : 'translateY(22px)', transition: 'opacity .9s ease .05s, transform .9s ease .05s' }}>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.68rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.red, margin: '0 0 1rem' }}>
+            The Ledger
+          </p>
+          <h2 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '3rem' : 'clamp(3rem, 6vw, 5.5rem)', lineHeight: 0.92, color: C.navy, margin: '0 0 1.4rem' }}>
+            WHAT IT HAS COST US
+          </h2>
+          <p style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '1.05rem' : '1.2rem', color: C.muted, lineHeight: 1.7, maxWidth: '42rem', margin: 0 }}>
+            Georgia builds the aircraft, runs the reactors, and grows the founders. In the last eighteen months, this is where the rest of it went.
+          </p>
+        </div>
+
+        {/* Ledger rows */}
+        <div style={{ display: 'flex', flexDirection: 'column', borderTop: `1px solid ${C.border}` }}>
+          {LEDGER.map((item, i) => (
+            <div key={i} style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '13rem 1fr 15rem',
+              gap: isMobile ? '0.4rem' : '2rem',
+              alignItems: 'start',
+              padding: isMobile ? '1.3rem 0' : '1.6rem 0',
+              borderBottom: `1px solid ${C.border}`,
+              opacity: inView ? 1 : 0,
+              transform: inView ? 'none' : 'translateY(14px)',
+              transition: `opacity .6s ease ${0.15 + i * 0.07}s, transform .6s ease ${0.15 + i * 0.07}s`,
+            }}>
+              <div style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 700, fontSize: isMobile ? '1.3rem' : '1.4rem', color: C.navy, letterSpacing: '0.01em', lineHeight: 1.1 }}>
+                {item.name}
+              </div>
+              <div style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '0.92rem' : '0.9rem', color: C.mutedHi, lineHeight: 1.6 }}>
+                {item.what}
+              </div>
+              <div style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 500, fontSize: isMobile ? '0.88rem' : '0.86rem', color: C.red, lineHeight: 1.5, marginTop: isMobile ? '0.25rem' : 0 }}>
+                {item.went}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* The fix */}
+        <div style={{
+          marginTop: isMobile ? '3rem' : '4.5rem',
+          background: C.navy,
+          borderRadius: '3px',
+          padding: isMobile ? '2rem 1.5rem' : '3.5rem',
+          opacity: inView ? 1 : 0,
+          transform: inView ? 'none' : 'translateY(26px)',
+          transition: 'opacity 1s ease .7s, transform 1s ease .7s',
+        }}>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.68rem', fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', margin: '0 0 1rem' }}>
+            The Fix
+          </p>
+          <h3 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '2.2rem' : '3.4rem', lineHeight: 0.95, color: '#fff', margin: '0 0 1.6rem', letterSpacing: '0.01em' }}>
+            OPERATION SOUTHERN SPEED
+          </h3>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: '0 0 1.4rem', maxWidth: '44rem' }}>
+            Louisiana was losing too. Then the governor signed an executive order putting every state agency on a project together from day one, clearing permitting, environmental review, workforce, and infrastructure upfront instead of making companies fight through them one at a time. They call it Louisiana Lightning Speed.
+          </p>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: '0 0 1.8rem', maxWidth: '44rem' }}>
+            Months later SpaceX committed $100 billion to build the largest spaceport on Earth in a rural parish of 57,000 people. Georgia can sign the same order tomorrow.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+            {[
+              'One state office with authority to clear a project end to end',
+              'Permitting, environmental, workforce, and utilities handled in parallel',
+              'A fixed timeline companies can plan against',
+              'Applied to every proven high-stakes development, in every region',
+            ].map((line, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem' }}>
+                <div style={{ flexShrink: 0, marginTop: '0.5rem', width: '5px', height: '5px', borderRadius: '50%', background: C.red }} />
+                <span style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 400, fontSize: isMobile ? '0.95rem' : '0.92rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.65 }}>
+                  {line}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
+}
 
 function CaseForGeorgia() {
   const [ref, inView] = useInView(0.06)
@@ -869,6 +972,7 @@ export default function App() {
       <Nav onGetInvolved={() => setShowPopup(true)} />
       <Hero />
       <div id="full-georgia"><FullGeorgia /></div>
+      <TheLedger />
       <div id="case-for-georgia"><CaseForGeorgia /></div>
       <StatStrip />
       {POLICIES.map((policy, i) => (
