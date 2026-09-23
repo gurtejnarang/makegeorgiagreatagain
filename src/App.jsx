@@ -481,7 +481,7 @@ function TheLedger() {
             Months later SpaceX committed $100 billion to build the largest spaceport on Earth in a rural parish of 57,000 people. Georgia can sign the same order tomorrow.
           </p>
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: '0 0 1.8rem', maxWidth: '44rem' }}>
-            It should come with a board of advisors. Not consultants and not career staff, but the founders who actually built companies in this state and the ones running the ones being built now. The people who know where the friction is because they have already hit it.
+            It should come with a board of advisors. Not consultants and not career staff, but the founders who actually built companies in this state and the ones running the ones being built now. The people who know where the friction is because they have already hit it. Advisors who can call capital in and have the agency to deliver for the state.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {[
