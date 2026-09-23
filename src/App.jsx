@@ -323,13 +323,16 @@ function Hero() {
       <div style={{ padding: isMobile ? '7rem 1.5rem 3rem' : '10rem 4rem 6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={anim(0.2)}>
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontSize: '0.78rem', fontWeight: 400, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.red, margin: '0 0 1.4rem' }}>
-            USA First Lab
+            A USA First Lab Project
           </p>
         </div>
         <div style={anim(0.36)}>
-          <h1 style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '5.5rem' : 'clamp(4.5rem, 9vw, 9rem)', lineHeight: 0.9, color: C.navy, margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
-            GEORGIA
+          <h1 style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+            Make Georgia Great Again — a policy vision from USA First Lab
           </h1>
+          <div aria-hidden="true" style={{ fontFamily: "'Big Shoulders Display', sans-serif", fontWeight: 900, fontSize: isMobile ? '5.5rem' : 'clamp(4.5rem, 9vw, 9rem)', lineHeight: 0.9, color: C.navy, margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
+            GEORGIA
+          </div>
           <h2 style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300, fontSize: isMobile ? '2.2rem' : 'clamp(1.8rem, 3.5vw, 3.2rem)', color: C.red, margin: 0 }}>
             Unleashed.
           </h2>
@@ -480,12 +483,16 @@ function TheLedger() {
           <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: '0 0 1.8rem', maxWidth: '44rem' }}>
             Months later SpaceX committed $100 billion to build the largest spaceport on Earth in a rural parish of 57,000 people. Georgia can sign the same order tomorrow.
           </p>
+          <p style={{ fontFamily: "'Public Sans', sans-serif", fontWeight: 300, fontSize: isMobile ? '1rem' : '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.9, margin: '0 0 1.8rem', maxWidth: '44rem' }}>
+            It should come with a board of advisors. Not consultants and not career staff, but the founders who actually built companies in this state and the ones running the ones being built now. The people who know where the friction is because they have already hit it.
+          </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
             {[
               'One state office with authority to clear a project end to end',
               'Permitting, environmental, workforce, and utilities handled in parallel',
               'A fixed timeline companies can plan against',
               'Applied to every proven high-stakes development, in every region',
+              'A board of advisors drawn from the founders who already built here',
             ].map((line, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem' }}>
                 <div style={{ flexShrink: 0, marginTop: '0.5rem', width: '5px', height: '5px', borderRadius: '50%', background: C.red }} />

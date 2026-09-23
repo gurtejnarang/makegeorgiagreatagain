@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.makegeorgiagreatagain.org"
+        }
+      ],
+      "destination": "https://makegeorgiagreatagain.org/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "makegeorgiagreatagain.vercel.app"
+        }
+      ],
+      "destination": "https://makegeorgiagreatagain.org/:path*",
+      "permanent": true
+    }
+  ]
+}
