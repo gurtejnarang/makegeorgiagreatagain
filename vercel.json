@@ -10,17 +10,6 @@
       ],
       "destination": "https://makegeorgiagreatagain.org/:path*",
       "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "makegeorgiagreatagain.vercel.app"
-        }
-      ],
-      "destination": "https://makegeorgiagreatagain.org/:path*",
-      "permanent": true
     }
   ]
 }
